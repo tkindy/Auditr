@@ -1,0 +1,13 @@
+logging:
+  level: INFO
+  loggers:
+    com.tylerkindy: DEBUG
+
+database:
+  driverClass: com.mysql.cj.jdbc.Driver
+  user: test
+  password: Test123
+  url: jdbc:mysql://localhost/courses?useSSL=false
+  initialSize: 3
+  minSize: 3
+  maxSize: 3
