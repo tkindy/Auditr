@@ -5,8 +5,6 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 @MyStyle
-public interface RequirementGroupIF {
-  String getName();
-  RequirementStatus getStatus();
+public interface RequirementGroupIF extends RequirementCore {
   Collection<Requirement> getRequirements();
 }

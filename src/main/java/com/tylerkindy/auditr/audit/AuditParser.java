@@ -41,6 +41,8 @@ public class AuditParser {
     Collection<RequirementGroup> requirementGroups =
         document.select("a[href=\"#linkback\"]").stream()
             .map(this::parseRequirementGroup)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .collect(Collectors.toSet());
 
     return Audit.builder()
@@ -48,14 +50,14 @@ public class AuditParser {
         .build();
   }
 
-  private RequirementGroup parseRequirementGroup(Element backLink) {
+  private Optional<RequirementGroup> parseRequirementGroup(Element backLink) {
     Element requirementGroupTitle = backLink.nextElementSibling();
     String groupTitleText = requirementGroupTitle.text().trim();
 
     Matcher titleMatcher = REQUIREMENT_GROUP_TITLE_PATTERN.matcher(groupTitleText);
 
     if (!titleMatcher.matches()) {
-      throw new AuditParsingException("Requirement group title", groupTitleText);
+      return Optional.empty();
     }
 
     RequirementStatus status = parseRequirementGroupStatus(titleMatcher.group(1));
@@ -69,14 +71,14 @@ public class AuditParser {
         continue;
       }
 
-      requirements.add(parseRequirement(curSection));
+      parseRequirement(curSection).ifPresent(requirements::add);
     }
 
-    return RequirementGroup.builder()
+    return Optional.of(RequirementGroup.builder()
         .setName(name)
         .setStatus(status)
         .setRequirements(requirements)
-        .build();
+        .build());
   }
 
   private RequirementStatus parseRequirementGroupStatus(String status) {
@@ -92,23 +94,23 @@ public class AuditParser {
     throw new AuditParsingException("Requirement group status", status);
   }
 
-  private Requirement parseRequirement(Element section) {
+  private Optional<Requirement> parseRequirement(Element section) {
     String titleText = section.child(0).text().trim();
     Matcher titleMatcher = REQUIREMENT_TITLE_PATTERN.matcher(titleText);
 
     if (!titleMatcher.matches()) {
-      throw new AuditParsingException("Requirement title", titleText);
+      return Optional.empty();
     }
 
     String name = titleMatcher.group(2);
     RequirementStatus status = parseRequirementStatus(titleMatcher.group(1));
     RemainingCoursesOperator operator = parseRemainingCoursesOperator(section);
 
-    return Requirement.builder()
+    return Optional.of(Requirement.builder()
         .setName(name)
         .setStatus(status)
         .setRemainingCoursesOperator(operator)
-        .build();
+        .build());
   }
 
   private RequirementStatus parseRequirementStatus(String status) {
