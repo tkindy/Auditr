@@ -2,6 +2,7 @@ package com.tylerkindy.auditr.resources;
 
 import com.google.inject.Inject;
 import com.tylerkindy.auditr.audit.AuditParser;
+import com.tylerkindy.auditr.core.Audit;
 import com.tylerkindy.auditr.core.CatalogCourse;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -22,7 +23,7 @@ public class AuditParseResource {
   @POST
   @Consumes(MediaType.TEXT_HTML)
   @Produces(MediaType.APPLICATION_JSON)
-  public Collection<CatalogCourse> parseAudit(String html) {
+  public Audit parseAudit(String html) {
     return auditParser.parse(html);
   }
 }
