@@ -1,13 +1,11 @@
-package com.tylerkindy.auditr.audit;
+package com.tylerkindy.nucourse.audit;
 
 import com.google.inject.Inject;
-import com.tylerkindy.auditr.core.Audit;
-import com.tylerkindy.auditr.core.CatalogCourse;
-import com.tylerkindy.auditr.core.RemainingCoursesOperator;
-import com.tylerkindy.auditr.core.Requirement;
-import com.tylerkindy.auditr.core.RequirementGroup;
-import com.tylerkindy.auditr.core.RequirementStatus;
-import com.tylerkindy.auditr.db.repos.CatalogCourseRepository;
+import com.tylerkindy.nucourse.core.Audit;
+import com.tylerkindy.nucourse.core.RemainingCoursesOperator;
+import com.tylerkindy.nucourse.core.Requirement;
+import com.tylerkindy.nucourse.core.RequirementGroup;
+import com.tylerkindy.nucourse.core.RequirementStatus;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;

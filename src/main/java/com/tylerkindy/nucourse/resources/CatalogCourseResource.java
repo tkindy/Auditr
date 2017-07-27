@@ -1,8 +1,8 @@
-package com.tylerkindy.auditr.resources;
+package com.tylerkindy.nucourse.resources;
 
 import com.google.inject.Inject;
-import com.tylerkindy.auditr.core.CatalogCourse;
-import com.tylerkindy.auditr.db.repos.CatalogCourseRepository;
+import com.tylerkindy.nucourse.core.CatalogCourse;
+import com.tylerkindy.nucourse.db.repos.CatalogCourseRepository;
 import java.util.Collection;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -1,4 +1,4 @@
-package com.tylerkindy.auditr.core;
+package com.tylerkindy.nucourse.core;
 
 import java.time.LocalDate;
 import org.immutables.value.Value.Immutable;

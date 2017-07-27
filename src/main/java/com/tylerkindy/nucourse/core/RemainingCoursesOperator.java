@@ -1,4 +1,4 @@
-package com.tylerkindy.auditr.core;
+package com.tylerkindy.nucourse.core;
 
 public enum RemainingCoursesOperator {
   AND, OR, NONE

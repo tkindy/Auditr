@@ -1,4 +1,4 @@
-package com.tylerkindy.auditr.core;
+package com.tylerkindy.nucourse.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

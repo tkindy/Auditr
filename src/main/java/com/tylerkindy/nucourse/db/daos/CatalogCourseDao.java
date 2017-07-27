@@ -1,8 +1,8 @@
-package com.tylerkindy.auditr.db.daos;
+package com.tylerkindy.nucourse.db.daos;
 
 import com.hubspot.rosetta.jdbi.BindWithRosetta;
-import com.tylerkindy.auditr.core.CatalogCourse;
-import com.tylerkindy.auditr.core.CatalogCourseRequest;
+import com.tylerkindy.nucourse.core.CatalogCourse;
+import com.tylerkindy.nucourse.core.CatalogCourseRequest;
 import java.util.Collection;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;

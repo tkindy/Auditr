@@ -1,4 +1,4 @@
-package com.tylerkindy.auditr;
+package com.tylerkindy.nucourse;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -10,15 +10,15 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.hubspot.rosetta.jdbi.RosettaMapperFactory;
 import com.netflix.governator.guice.lazy.LazySingleton;
-import com.tylerkindy.auditr.audit.AuditParser;
-import com.tylerkindy.auditr.db.daos.CatalogCourseDao;
+import com.tylerkindy.nucourse.audit.AuditParser;
+import com.tylerkindy.nucourse.db.daos.CatalogCourseDao;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.skife.jdbi.v2.DBI;
 
-public class AuditrModule extends AbstractModule {
+public class NUCourseModule extends AbstractModule {
 
   public static final String HTTP_CLIENT = "courses.service.httpClient";
   public static final String OBJECT_MAPPER = "courses.service.objectMapper";
@@ -31,7 +31,7 @@ public class AuditrModule extends AbstractModule {
   @Provides
   @LazySingleton
   public DBI providesDbi(DBIFactory factory, Environment environment,
-      AuditrConfiguration configuration, RosettaMapperFactory rosettaMapperFactory) {
+      NUCourseConfiguration configuration, RosettaMapperFactory rosettaMapperFactory) {
     DBI dbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
     dbi.registerMapper(rosettaMapperFactory);
 

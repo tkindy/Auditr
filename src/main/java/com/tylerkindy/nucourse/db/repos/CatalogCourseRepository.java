@@ -1,9 +1,9 @@
-package com.tylerkindy.auditr.db.repos;
+package com.tylerkindy.nucourse.db.repos;
 
 import com.google.inject.Inject;
-import com.tylerkindy.auditr.core.CatalogCourse;
-import com.tylerkindy.auditr.core.CatalogCourseRequest;
-import com.tylerkindy.auditr.db.daos.CatalogCourseDao;
+import com.tylerkindy.nucourse.core.CatalogCourse;
+import com.tylerkindy.nucourse.core.CatalogCourseRequest;
+import com.tylerkindy.nucourse.db.daos.CatalogCourseDao;
 import java.util.Collection;
 import java.util.Optional;
 
