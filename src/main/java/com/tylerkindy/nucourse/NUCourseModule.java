@@ -1,5 +1,7 @@
 package com.tylerkindy.nucourse;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,12 +27,11 @@ public class NUCourseModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(AuditParser.class);
   }
 
   @Provides
   @LazySingleton
-  public DBI providesDbi(DBIFactory factory, Environment environment,
+  DBI providesDbi(DBIFactory factory, Environment environment,
       NUCourseConfiguration configuration, RosettaMapperFactory rosettaMapperFactory) {
     DBI dbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
     dbi.registerMapper(rosettaMapperFactory);
@@ -40,7 +41,7 @@ public class NUCourseModule extends AbstractModule {
 
   @Provides
   @LazySingleton
-  public CatalogCourseDao providesCatalogCourseDao(DBI dbi) {
+  CatalogCourseDao providesCatalogCourseDao(DBI dbi) {
     return dbi.onDemand(CatalogCourseDao.class);
   }
 

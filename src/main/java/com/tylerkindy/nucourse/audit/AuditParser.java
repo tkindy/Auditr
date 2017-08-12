@@ -27,10 +27,6 @@ public class AuditParser {
   private static final Pattern COURSE_CONJUNCTION_PATTERN = Pattern.compile("^Complete the following");
   private static final Pattern STARTED_COURSE_LINE_PATTERN = Pattern.compile("^((?:FL|SP|S1|S2)\\d{2}) (\\w+?)\\s*(\\d+).*$");
 
-  @Inject
-  public AuditParser() {
-  }
-
   public Audit parse(String html) {
     return parse(Jsoup.parse(html));
   }
