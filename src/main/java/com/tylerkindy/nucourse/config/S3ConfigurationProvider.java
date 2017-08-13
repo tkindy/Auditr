@@ -1,13 +1,16 @@
 package com.tylerkindy.nucourse.config;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.google.inject.Inject;
+
 import io.dropwizard.configuration.ConfigurationSourceProvider;
-import java.io.IOException;
-import java.io.InputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class S3ConfigurationProvider implements ConfigurationSourceProvider {
 
@@ -24,9 +27,12 @@ public class S3ConfigurationProvider implements ConfigurationSourceProvider {
   @Override
   public InputStream open(String path) throws IOException {
     DeployEnvironment environment = DeployEnvironment.getCurrentEnv();
-    String configS3Key = environment.getConfigS3Key();
+    String configS3Key = "config/" + environment.getConfigFilename();
 
+    LOG.warn("Fetching {}...", configS3Key);
     S3Object config = s3Client.getObject(CONFIG_S3_BUCKET, configS3Key);
+    LOG.warn("Fetched {}!", configS3Key);
+
     return config.getObjectContent();
   }
 }

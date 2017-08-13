@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.netflix.governator.guice.LifecycleInjector;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
+
 import io.dropwizard.Application;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
@@ -12,11 +13,23 @@ import io.dropwizard.setup.Environment;
 public class NUCourseApplication extends Application<NUCourseConfiguration> {
 
   public static void main(final String[] args) throws Exception {
-    new NUCourseApplication().run();
+    new NUCourseApplication().run(args);
   }
 
   @Override
   public void initialize(final Bootstrap<NUCourseConfiguration> bootstrap) {
+    setConfigProvider(bootstrap);
+    addGuiceBundle(bootstrap);
+  }
+
+  private static void setConfigProvider(Bootstrap<NUCourseConfiguration> bootstrap) {
+    ConfigurationSourceProvider provider =
+        new S3ConfigurationProvider(AmazonS3ClientBuilder.defaultClient());
+
+    bootstrap.setConfigurationSourceProvider(provider);
+  }
+
+  private void addGuiceBundle(Bootstrap<NUCourseConfiguration> bootstrap) {
     GuiceBundle<NUCourseConfiguration> guiceBundle = GuiceBundle.<NUCourseConfiguration>newBuilder()
         .addModule(new NUCourseModule())
         .enableAutoConfig(getClass().getPackage().getName())
@@ -29,16 +42,11 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
         .build();
 
     bootstrap.addBundle(guiceBundle);
-
-    ConfigurationSourceProvider provider =
-        new S3ConfigurationProvider(AmazonS3ClientBuilder.defaultClient());
-
-    bootstrap.setConfigurationSourceProvider(provider);
   }
 
   @Override
   public void run(final NUCourseConfiguration configuration,
-      final Environment environment) {
+                  final Environment environment) {
     // auto-discovers resources
   }
 }

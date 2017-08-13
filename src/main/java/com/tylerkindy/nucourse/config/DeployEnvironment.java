@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public enum DeployEnvironment {
-  DEV("dev-config.yml"),
-  QA("qa-config.yml"),
-  PROD("prod-config.yml");
+  DEV("config-dev.yml"),
+  QA("config-qa.yml"),
+  PROD("config-prod.yml");
 
   private static final Logger LOG = LoggerFactory.getLogger(DeployEnvironment.class);
   private static final DeployEnvironment DEFAULT_ENV = DEV;
@@ -45,7 +45,7 @@ public enum DeployEnvironment {
     }
   }
 
-  public String getConfigS3Key() {
+  public String getConfigFilename() {
     return configS3Key;
   }
 }

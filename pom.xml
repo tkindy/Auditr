@@ -21,7 +21,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <dropwizard.version>1.1.2</dropwizard.version>
     <governator.version>1.17.4</governator.version>
-    <aws-sdk.version>1.11.160</aws-sdk.version>
+    <aws-sdk.version>1.11.175</aws-sdk.version>
     <jackson.version>2.8.9</jackson.version>
     <mainClass>com.tylerkindy.nucourse.NUCourseApplication</mainClass>
   </properties>
@@ -146,7 +146,7 @@
       </dependency>
       <dependency>
         <groupId>com.amazonaws</groupId>
-        <artifactId>aws-java-sdk</artifactId>
+        <artifactId>aws-java-sdk-s3</artifactId>
         <version>${aws-sdk.version}</version>
       </dependency>
     </dependencies>
@@ -243,7 +243,7 @@
     </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk</artifactId>
+      <artifactId>aws-java-sdk-s3</artifactId>
     </dependency>
   </dependencies>
 
