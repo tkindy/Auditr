@@ -3,6 +3,7 @@ package com.tylerkindy.nucourse;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.netflix.governator.guice.LifecycleInjector;
+import com.palantir.websecurity.WebSecurityBundle;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
 
 import io.dropwizard.Application;
@@ -20,6 +21,8 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
   public void initialize(final Bootstrap<NUCourseConfiguration> bootstrap) {
     setConfigProvider(bootstrap);
     addGuiceBundle(bootstrap);
+
+    bootstrap.addBundle(new WebSecurityBundle());
   }
 
   private static void setConfigProvider(Bootstrap<NUCourseConfiguration> bootstrap) {
