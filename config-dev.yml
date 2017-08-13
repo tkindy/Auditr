@@ -2,6 +2,8 @@ logging:
   level: INFO
   loggers:
     com.tylerkindy: DEBUG
+  appenders:
+    - type: console
 
 database:
   driverClass: com.mysql.cj.jdbc.Driver
@@ -11,3 +13,10 @@ database:
   initialSize: 3
   minSize: 3
   maxSize: 3
+
+server:
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: http
+    port: 8080
