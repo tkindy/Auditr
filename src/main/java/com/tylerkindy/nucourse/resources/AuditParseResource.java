@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("parse-audit")
 public class AuditParseResource {
+
   private final AuditParser auditParser;
 
   @Inject

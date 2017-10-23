@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("catalog")
 public class CatalogCourseResource {
+
   private final CatalogCourseRepository catalogCourseRepository;
 
   @Inject

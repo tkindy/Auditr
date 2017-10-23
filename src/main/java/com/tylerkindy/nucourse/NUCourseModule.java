@@ -1,7 +1,5 @@
 package com.tylerkindy.nucourse;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -12,7 +10,6 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.hubspot.rosetta.jdbi.RosettaMapperFactory;
 import com.netflix.governator.guice.lazy.LazySingleton;
-import com.tylerkindy.nucourse.audit.AuditParser;
 import com.tylerkindy.nucourse.db.daos.CatalogCourseDao;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;

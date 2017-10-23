@@ -1,17 +1,20 @@
 package com.tylerkindy.nucourse;
 
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.netflix.governator.guice.LifecycleInjector;
 import com.palantir.websecurity.WebSecurityBundle;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
-
 import io.dropwizard.Application;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import software.amazon.awssdk.auth.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
 
 public class NUCourseApplication extends Application<NUCourseConfiguration> {
+
+  private static final String AWS_PROFILE = "nucourse";
 
   public static void main(final String[] args) throws Exception {
     new NUCourseApplication().run(args);
@@ -27,7 +30,12 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
 
   private static void setConfigProvider(Bootstrap<NUCourseConfiguration> bootstrap) {
     ConfigurationSourceProvider provider =
-        new S3ConfigurationProvider(AmazonS3ClientBuilder.defaultClient());
+        new S3ConfigurationProvider(S3Client.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.builder()
+                .profileName(AWS_PROFILE)
+                .build())
+            .build());
 
     bootstrap.setConfigurationSourceProvider(provider);
   }
@@ -49,7 +57,7 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
 
   @Override
   public void run(final NUCourseConfiguration configuration,
-                  final Environment environment) {
+      final Environment environment) {
     // auto-discovers resources
   }
 }

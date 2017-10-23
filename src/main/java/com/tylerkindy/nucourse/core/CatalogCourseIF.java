@@ -9,5 +9,6 @@ import org.immutables.value.Value.Immutable;
 @JsonSerialize
 @JsonDeserialize
 public interface CatalogCourseIF extends CatalogCourseCore {
+
   int getId();
 }

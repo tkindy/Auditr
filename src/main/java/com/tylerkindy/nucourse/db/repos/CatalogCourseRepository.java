@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class CatalogCourseRepository {
+
   private final CatalogCourseDao dao;
 
   @Inject

@@ -21,7 +21,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <dropwizard.version>1.1.2</dropwizard.version>
     <governator.version>1.17.4</governator.version>
-    <aws-sdk.version>1.11.175</aws-sdk.version>
+    <aws-sdk.version>2.0.0-preview-1</aws-sdk.version>
     <jackson.version>2.8.9</jackson.version>
     <mainClass>com.tylerkindy.nucourse.NUCourseApplication</mainClass>
   </properties>
@@ -150,14 +150,16 @@
         <version>2.0.18</version>
       </dependency>
       <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-java-sdk-s3</artifactId>
-        <version>${aws-sdk.version}</version>
-      </dependency>
-      <dependency>
         <groupId>com.palantir.websecurity</groupId>
         <artifactId>dropwizard-web-security</artifactId>
         <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>bom</artifactId>
+        <version>${aws-sdk.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -256,12 +258,17 @@
       <artifactId>error_prone_annotations</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-s3</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.palantir.websecurity</groupId>
       <artifactId>dropwizard-web-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>core</artifactId>
+      <version>${aws-sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
     </dependency>
   </dependencies>
 
