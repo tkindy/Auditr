@@ -2,15 +2,10 @@ package com.tylerkindy.nucourse.config;
 
 import com.google.inject.Inject;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import jdk.internal.util.xml.impl.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.s3.S3Client;

@@ -17,4 +17,6 @@ import org.immutables.value.Value.Style.ImplementationVisibility;
     optionalAcceptNullable = true,
     forceJacksonPropertyNames = false,
     visibility = ImplementationVisibility.PUBLIC) // Generated class will be always public
-public @interface MyStyle {}
+public @interface MyStyle {
+
+}

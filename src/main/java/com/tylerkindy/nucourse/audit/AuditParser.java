@@ -1,6 +1,5 @@
 package com.tylerkindy.nucourse.audit;
 
-import com.google.inject.Inject;
 import com.tylerkindy.nucourse.core.Audit;
 import com.tylerkindy.nucourse.core.RemainingCoursesOperator;
 import com.tylerkindy.nucourse.core.Requirement;
@@ -22,10 +21,14 @@ import org.slf4j.LoggerFactory;
 public class AuditParser {
 
   private static final Logger LOG = LoggerFactory.getLogger(AuditParser.class);
-  private static final Pattern REQUIREMENT_GROUP_TITLE_PATTERN = Pattern.compile("^(NO|IP|OK)\\s+(.+)$");
-  private static final Pattern REQUIREMENT_TITLE_PATTERN = Pattern.compile("^(\\+|-|IP\\+|IP-)\\s+(.+)$");
-  private static final Pattern COURSE_CONJUNCTION_PATTERN = Pattern.compile("^Complete the following");
-  private static final Pattern STARTED_COURSE_LINE_PATTERN = Pattern.compile("^((?:FL|SP|S1|S2)\\d{2}) (\\w+?)\\s*(\\d+).*$");
+  private static final Pattern REQUIREMENT_GROUP_TITLE_PATTERN = Pattern
+      .compile("^(NO|IP|OK)\\s+(.+)$");
+  private static final Pattern REQUIREMENT_TITLE_PATTERN = Pattern
+      .compile("^(\\+|-|IP\\+|IP-)\\s+(.+)$");
+  private static final Pattern COURSE_CONJUNCTION_PATTERN = Pattern
+      .compile("^Complete the following");
+  private static final Pattern STARTED_COURSE_LINE_PATTERN = Pattern
+      .compile("^((?:FL|SP|S1|S2)\\d{2}) (\\w+?)\\s*(\\d+).*$");
 
   public Audit parse(String html) {
     return parse(Jsoup.parse(html));

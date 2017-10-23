@@ -10,6 +10,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 
 public interface CatalogCourseDao {
+
   @SqlQuery("SELECT * FROM catalog_courses WHERE id = :id")
   CatalogCourse getById(@Bind("id") int id);
 

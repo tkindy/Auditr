@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class NUCourseConfiguration extends Configuration implements WebSecurityConfigurable {
+
   @Valid
   @NotNull
   private DataSourceFactory database = new DataSourceFactory();
