@@ -6,7 +6,6 @@ import com.tylerkindy.nucourse.core.Requirement;
 import com.tylerkindy.nucourse.core.RequirementGroup;
 import com.tylerkindy.nucourse.core.RequirementStatus;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,16 +59,13 @@ public class AuditParser {
     RequirementStatus status = parseRequirementGroupStatus(titleMatcher.group(1));
     String name = titleMatcher.group(2);
 
-    Collection<Requirement> requirements = new HashSet<>();
-    Element curSection = requirementGroupTitle;
+    Elements sectionElements = getSectionElements(requirementGroupTitle);
 
-    while ((curSection = curSection.nextElementSibling()).is("p")) {
-      if (curSection.children().isEmpty()) {
-        continue;
-      }
-
-      parseRequirement(curSection).ifPresent(requirements::add);
-    }
+    Collection<Requirement> requirements = sectionElements.stream()
+        .map(this::parseRequirement)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .collect(Collectors.toSet());
 
     return Optional.of(RequirementGroup.builder()
         .setName(name)
@@ -91,7 +87,22 @@ public class AuditParser {
     throw new AuditParsingException("Requirement group status", status);
   }
 
+  private Elements getSectionElements(Element title) {
+    Elements result = new Elements();
+    Element curElement = title;
+
+    while (!(curElement = curElement.nextElementSibling()).is("hr")) {
+      result.add(curElement);
+    }
+
+    return result;
+  }
+
   private Optional<Requirement> parseRequirement(Element section) {
+    if (section.children().isEmpty()) {
+      return Optional.empty();
+    }
+
     String titleText = section.child(0).text().trim();
     Matcher titleMatcher = REQUIREMENT_TITLE_PATTERN.matcher(titleText);
 
