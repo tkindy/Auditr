@@ -1,11 +1,13 @@
 package com.tylerkindy.nucourse.config;
 
+import com.google.common.io.Resources;
 import com.google.inject.Inject;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,8 +29,26 @@ public class S3ConfigurationProvider implements ConfigurationSourceProvider {
 
   @Override
   public InputStream open(String path) throws IOException {
-    DeployEnvironment environment = DeployEnvironment.getCurrentEnv();
-    String configS3Key = "config/" + environment.getConfigFilename();
+    DeployEnvironment env = DeployEnvironment.getCurrentEnv();
+
+    if (env == DeployEnvironment.DEV) {
+      return openLocalConfig(env);
+    }
+
+    return openRemoteConfig(env);
+  }
+
+  private InputStream openLocalConfig(DeployEnvironment env) throws IOException {
+    LOG.warn("Loading local config...");
+    URL configUrl = Resources.getResource(env.getConfigFilename());
+    InputStream stream = configUrl.openStream();
+
+    LOG.warn("Loaded local config!");
+    return stream;
+  }
+
+  private InputStream openRemoteConfig(DeployEnvironment env) throws IOException {
+    String configS3Key = "config/" + env.getConfigFilename();
 
     LOG.warn("Fetching {}...", configS3Key);
     GetObjectRequest request = GetObjectRequest.builder()
@@ -41,5 +61,6 @@ public class S3ConfigurationProvider implements ConfigurationSourceProvider {
     LOG.warn("Fetched {}!", configS3Key);
 
     return new ByteArrayInputStream(outputStream.toByteArray());
+
   }
 }
