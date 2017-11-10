@@ -9,8 +9,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
+import okhttp3.OkHttpClient;
 import software.amazon.awssdk.auth.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -24,8 +23,8 @@ public class NUCourseInitModule extends AbstractModule {
   }
 
   @Provides
-  HttpClient provideHttpClient() {
-    return HttpClients.createDefault();
+  OkHttpClient provideHttpClient() {
+    return new OkHttpClient();
   }
 
   @Provides
