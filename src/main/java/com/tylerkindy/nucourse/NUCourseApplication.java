@@ -4,6 +4,9 @@ import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.netflix.governator.guice.LifecycleInjector;
 import com.palantir.websecurity.WebSecurityBundle;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
+import com.tylerkindy.nucourse.jobs.CatalogScrapingJob;
+import de.spinscale.dropwizard.jobs.Job;
+import de.spinscale.dropwizard.jobs.JobsBundle;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
@@ -26,6 +29,8 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
     addGuiceBundle(bootstrap);
 
     bootstrap.addBundle(new WebSecurityBundle());
+
+    initializeJobs(bootstrap);
   }
 
   private static void setConfigProvider(Bootstrap<NUCourseConfiguration> bootstrap) {
@@ -53,6 +58,12 @@ public class NUCourseApplication extends Application<NUCourseConfiguration> {
         .build();
 
     bootstrap.addBundle(guiceBundle);
+  }
+
+  private void initializeJobs(Bootstrap<NUCourseConfiguration> bootstrap) {
+    Job catalogScrapingJob = new CatalogScrapingJob();
+
+    bootstrap.addBundle(new JobsBundle(catalogScrapingJob));
   }
 
   @Override

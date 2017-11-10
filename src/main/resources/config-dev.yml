@@ -24,3 +24,6 @@ server:
 webSecurity:
   cors:
     allowedOrigins: "*"
+
+jobs:
+  catalogScrapingJob: 5s
