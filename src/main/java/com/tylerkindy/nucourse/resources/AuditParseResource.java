@@ -2,7 +2,7 @@ package com.tylerkindy.nucourse.resources;
 
 import com.google.inject.Inject;
 import com.tylerkindy.nucourse.audit.AuditParser;
-import com.tylerkindy.nucourse.core.Audit;
+import com.tylerkindy.nucourse.core.audit.Audit;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

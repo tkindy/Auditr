@@ -1,10 +1,10 @@
 package com.tylerkindy.nucourse.audit;
 
-import com.tylerkindy.nucourse.core.Audit;
-import com.tylerkindy.nucourse.core.RemainingCoursesOperator;
-import com.tylerkindy.nucourse.core.Requirement;
-import com.tylerkindy.nucourse.core.RequirementGroup;
-import com.tylerkindy.nucourse.core.RequirementStatus;
+import com.tylerkindy.nucourse.core.audit.Audit;
+import com.tylerkindy.nucourse.core.audit.RemainingCoursesOperator;
+import com.tylerkindy.nucourse.core.audit.Requirement;
+import com.tylerkindy.nucourse.core.audit.RequirementGroup;
+import com.tylerkindy.nucourse.core.audit.RequirementStatus;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.regex.Matcher;

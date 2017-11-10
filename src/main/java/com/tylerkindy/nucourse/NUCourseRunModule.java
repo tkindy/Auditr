@@ -3,7 +3,6 @@ package com.tylerkindy.nucourse;
 import com.google.inject.Provides;
 import com.hubspot.rosetta.jdbi.RosettaMapperFactory;
 import com.netflix.governator.guice.lazy.LazySingleton;
-import com.tylerkindy.nucourse.db.daos.CatalogCourseDao;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
@@ -22,11 +21,5 @@ public final class NUCourseRunModule extends NUCourseInitModule {
     dbi.registerMapper(rosettaMapperFactory);
 
     return dbi;
-  }
-
-  @Provides
-  @LazySingleton
-  CatalogCourseDao providesCatalogCourseDao(DBI dbi) {
-    return dbi.onDemand(CatalogCourseDao.class);
   }
 }

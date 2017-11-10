@@ -1,5 +1,6 @@
-package com.tylerkindy.nucourse.core;
+package com.tylerkindy.nucourse.core.audit;
 
+import com.tylerkindy.nucourse.core.MyStyle;
 import org.immutables.value.Value.Immutable;
 
 @Immutable

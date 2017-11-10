@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import org.apache.http.client.HttpClient;
@@ -18,9 +17,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 public class NUCourseInitModule extends AbstractModule {
 
-  public static final String HTTP_CLIENT = "courses.service.httpClient";
-  public static final String OBJECT_MAPPER = "courses.service.objectMapper";
-
   private static final String AWS_PROFILE = "nucourse";
 
   @Override
@@ -28,14 +24,12 @@ public class NUCourseInitModule extends AbstractModule {
   }
 
   @Provides
-  @Named(HTTP_CLIENT)
   HttpClient provideHttpClient() {
     return HttpClients.createDefault();
   }
 
   @Provides
   @Singleton
-  @Named(OBJECT_MAPPER)
   ObjectMapper provideObjectMapper() {
     ObjectMapper mapper = new ObjectMapper();
 
