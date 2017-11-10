@@ -8,38 +8,23 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.hubspot.rosetta.jdbi.RosettaMapperFactory;
-import com.netflix.governator.guice.lazy.LazySingleton;
-import com.tylerkindy.nucourse.db.daos.CatalogCourseDao;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.setup.Environment;
+import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
+import io.dropwizard.configuration.ConfigurationSourceProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.skife.jdbi.v2.DBI;
+import software.amazon.awssdk.auth.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
 
-public class NUCourseModule extends AbstractModule {
+public class NUCourseInitModule extends AbstractModule {
 
   public static final String HTTP_CLIENT = "courses.service.httpClient";
   public static final String OBJECT_MAPPER = "courses.service.objectMapper";
 
+  private static final String AWS_PROFILE = "nucourse";
+
   @Override
   protected void configure() {
-  }
-
-  @Provides
-  @LazySingleton
-  DBI providesDbi(DBIFactory factory, Environment environment,
-      NUCourseConfiguration configuration, RosettaMapperFactory rosettaMapperFactory) {
-    DBI dbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-    dbi.registerMapper(rosettaMapperFactory);
-
-    return dbi;
-  }
-
-  @Provides
-  @LazySingleton
-  CatalogCourseDao providesCatalogCourseDao(DBI dbi) {
-    return dbi.onDemand(CatalogCourseDao.class);
   }
 
   @Provides
@@ -60,5 +45,22 @@ public class NUCourseModule extends AbstractModule {
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     return mapper;
+  }
+
+  @Provides
+  @Singleton
+  ConfigurationSourceProvider provideConfigurationSourceProvider(S3Client s3Client) {
+    return new S3ConfigurationProvider(s3Client);
+  }
+
+  @Provides
+  @Singleton
+  S3Client provideS3Client() {
+    return S3Client.builder()
+        .region(Region.US_EAST_1)
+        .credentialsProvider(ProfileCredentialsProvider.builder()
+            .profileName(AWS_PROFILE)
+            .build())
+        .build();
   }
 }
