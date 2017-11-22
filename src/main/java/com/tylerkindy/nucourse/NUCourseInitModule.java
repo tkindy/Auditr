@@ -9,6 +9,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.tylerkindy.nucourse.config.S3ConfigurationProvider;
 import io.dropwizard.configuration.ConfigurationSourceProvider;
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import software.amazon.awssdk.auth.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -24,7 +25,9 @@ public class NUCourseInitModule extends AbstractModule {
 
   @Provides
   OkHttpClient provideHttpClient() {
-    return new OkHttpClient();
+    return new OkHttpClient.Builder()
+        .readTimeout(1, TimeUnit.MINUTES)
+        .build();
   }
 
   @Provides

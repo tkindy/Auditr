@@ -26,4 +26,4 @@ webSecurity:
     allowedOrigins: "*"
 
 jobs:
-  catalogScrapingJob: 5s
+  catalogScrapingJob: 3d
